@@ -39,7 +39,7 @@ def medianFilter(image, sizeMedianMask):
     return newImage
 
 if __name__ == '__main__':
-    lenaImage = Image.open('Trabalho2\\lena_gray.bmp')
+    lenaImage = Image.open('Trabalho2\\lena_ruido.bmp')
     pixelsLenaImage = lenaImage.load()
 
     mask1 = {}

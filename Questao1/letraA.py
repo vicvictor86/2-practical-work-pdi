@@ -23,14 +23,31 @@ def sumOfProducts(image, xImage, yImage, mask):
     return result
 
 def laplaciano(image, mask, c):
-    newImage = Image.new(image.mode, (image.size[0], image.size[1]))
     lines = image.size[0]
     columns = image.size[1]
+    newImage = Image.new(image.mode, (lines, columns))
+    
+    minimumValue = 0
 
     for i in range(lines):
         for j in range(columns):
+            actualValuePixel = image.getpixel((i, j))
+
+            if i == 0 and j == 0:
+                minimumValue = actualValuePixel
+            else:
+                minimumValue = min(minimumValue, actualValuePixel)
+
             result = c * sumOfProducts(image, i, j, mask)
+            
             newImage.putpixel((i, j), int(result))
+    
+    for i in range(lines):
+        for j in range(columns):
+            #Correção da escala
+            # newImage.putpixel((i, j), int(newImage.getpixel((i, j)) + minimumValue))
+
+            newImage.putpixel((i, j), int(newImage.getpixel((i, j)) + image.getpixel((i, j))))
 
     return newImage
 
@@ -43,7 +60,7 @@ if __name__ == '__main__':
     mask[1] = [1, -4, 1] 
     mask[2] = [0, 1, 0]  
 
-    c = 1
+    c = -1
 
     newImage = laplaciano(lenaImage, mask, c)
     newImage.save('Trabalho2\\Questao1\\laplaciano-A\\lena_gray_filtered.bmp')

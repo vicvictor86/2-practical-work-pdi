@@ -1,18 +1,30 @@
 from PIL import Image
 import numpy as np 
 
+import sys        
+sys.path.append('D:\Programming\PDI\Trabalho2')
+from AuxFunctions.diffTuple import diffTuple
+
 def diff(image1,image2):
-    imageResult = Image.new("1", (image1.size[0], image1.size[1]))
     lines = image1.size[0]
     columns = image1.size[1]
-    pixelsImage1 = image1.load()
-    pixelsImage2 = image2.load()
+    imageResult = Image.new(image1.mode, (lines, columns))
+    
     result = 0
     for i in range(lines):
         for j in range(columns):
             result = 0
-            if pixelsImage1[i,j] - pixelsImage2[i,j] == 0:
-                result = 1
+            pixel1 = image1.getpixel((i, j))
+            pixel2 = image2.getpixel((i, j))
+
+            if image1.mode == 'RGB' or image1.mode == 'RGBA':
+                if diffTuple(pixel1, pixel2) == (0, 0, 0, 0):
+                    result = (255, 255, 255, 255)
+                else:
+                    result = pixel1
+            else:
+                if pixel1 - pixel2 == 0:
+                    result = 1
 
             imageResult.putpixel((i, j), result)
     return imageResult

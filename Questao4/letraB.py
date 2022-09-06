@@ -1,7 +1,7 @@
 from PIL import Image
 import numpy as np 
 
-from letraA import pixelInsideImage
+from Questao4.letraA import pixelInsideImage
 
 def erosion(image, kernel):
     lines = image.size[0]
@@ -12,13 +12,13 @@ def erosion(image, kernel):
 
     for i in range(lines):
         for j in range(columns):
-            xInMask = 0
             centralPixelValue = image.getpixel((i, j))
-            
-            #ta errado esse if tem que ser igual o valor central da máscara, dps corrigir
-            if centralPixelValue != 0:
-                continue
+            centralPixelMask = kernel[rangeToSearch][rangeToSearch]
 
+            if centralPixelValue != centralPixelMask:
+                continue
+            
+            xInMask = 0
             for k in range(-rangeToSearch, rangeToSearch + 1):
                 yInMask = 0
                 for l in range(-rangeToSearch, rangeToSearch + 1):

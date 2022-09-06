@@ -2,7 +2,7 @@ from PIL import Image
 import numpy as np 
 
 def createImage(sizeImage, start, end):
-    newImage = Image.new("1", (sizeImage, sizeImage))
+    newImage = Image.new(image1.mode, (sizeImage, sizeImage))
     newImage.putdata(np.ones(sizeImage*sizeImage))
 
     for i in range(start, end):
@@ -10,7 +10,7 @@ def createImage(sizeImage, start, end):
             newImage.putpixel((i, j), 0)
 
 def union(image1,image2):
-    imageResult = Image.new("1", (image1.size[0], image1.size[1]))
+    imageResult = Image.new(image1.mode, (image1.size[0], image1.size[1]))
     lines = image1.size[0]
     columns = image1.size[1]
     pixelsImage1 = image1.load()

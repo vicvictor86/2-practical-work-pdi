@@ -18,15 +18,17 @@ def dilation(image, kernel):
     imageResult = image.copy()
     
     rangeToSearch = len(kernel) // 2
-
+    result = 1
+    
     for i in range(lines):
         for j in range(columns):
-            xInMask = 0
             centralPixelValue = image.getpixel((i, j))
+            centralPixelMask = kernel[rangeToSearch][rangeToSearch]
 
-            if centralPixelValue != 0:
+            if centralPixelValue != centralPixelMask:
                 continue
-
+            
+            xInMask = 0
             for k in range(-rangeToSearch, rangeToSearch + 1):
                 yInMask = 0
                 for l in range(-rangeToSearch, rangeToSearch + 1):

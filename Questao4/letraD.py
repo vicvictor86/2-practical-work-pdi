@@ -1,8 +1,8 @@
 from PIL import Image
 import numpy as np 
 
-from letraA import dilation
-from letraB import erosion
+from Questao4.letraA import dilation
+from Questao4.letraB import erosion
 
 def closing(image, kernel):
     dilatadedImage = dilation(image, kernel)

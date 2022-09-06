@@ -2,7 +2,7 @@ from PIL import Image
 import numpy as np 
 
 def intersection(image1,image2):
-    imageResult = Image.new("1", (image1.size[0], image1.size[1]))
+    imageResult = Image.new(image1.mode, (image1.size[0], image1.size[1]))
     lines = image1.size[0]
     columns = image1.size[1]
     pixelsImage1 = image1.load()

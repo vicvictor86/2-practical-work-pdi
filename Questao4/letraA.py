@@ -18,7 +18,6 @@ def dilation(image, kernel):
     imageResult = image.copy()
     
     rangeToSearch = len(kernel) // 2
-    result = 1
     
     for i in range(lines):
         for j in range(columns):
@@ -35,8 +34,7 @@ def dilation(image, kernel):
                     if pixelInsideImage(image, i+k, j+l):
                         if kernel[xInMask][yInMask] == 0:
                             result = 0           
-                            
-                        imageResult.putpixel((i+k, j+l), result)
+                            imageResult.putpixel((i+k, j+l), result)
                     yInMask += 1
                 xInMask += 1
             

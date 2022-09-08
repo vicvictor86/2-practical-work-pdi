@@ -1,5 +1,6 @@
 from PIL import Image
 
+
 def proxPixel(image, i, ti,  j, tj):
     try:
         return image.getpixel((i + ti, j + tj))

@@ -50,8 +50,8 @@ if __name__ == '__main__':
     prewittVerticalImage = applyLinearFilter(lenaImage, prewittVerticalMask)
     prewittVerticalImage.save('Trabalho2\\Questao1\\prewitt-D\\lena_gray_vertical_prewitt.bmp')
 
-    differenceBetweenTwoImages = differenceBetween(sobelHorizontalImage, prewittVerticalImage)
-    differenceBetweenTwoImages.save('Trabalho2\\Questao1\\Sobel-D\\verticalDifferenceBetweenTwoImages.bmp')
+    differenceBetweenTwoImages = differenceBetween(sobelHorizontalImage, prewittHorizontalImage)
+    differenceBetweenTwoImages.save('Trabalho2\\Questao1\\SobelAndPrewittDiff\\verticalDifferenceBetweenTwoImages.bmp')
 
-    differenceBetweenTwoImages = differenceBetween(sobelVerticalImage, prewittHorizontalImage)
-    differenceBetweenTwoImages.save('Trabalho2\\Questao1\\prewitt-D\\verticalDifferenceBetweenTwoImages.bmp')
+    differenceBetweenTwoImages = differenceBetween(sobelVerticalImage, prewittVerticalImage)
+    differenceBetweenTwoImages.save('Trabalho2\\Questao1\\SobelAndPrewittDiff\\horizontalDifferenceBetweenTwoImages.bmp')

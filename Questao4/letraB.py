@@ -1,6 +1,9 @@
 from PIL import Image
-import numpy as np 
 
+import sys        
+sys.path.append('D:\Programming\PDI\Trabalho2')
+
+from Questao3.letraC import diff
 from Questao4.letraA import pixelInsideImage
 
 def erosion(image, kernel):
@@ -32,15 +35,7 @@ def erosion(image, kernel):
     return imageResult
 
 if __name__ == '__main__':
-    sizeImage = 10
-    image1 = Image.new("1", (sizeImage, sizeImage))
-    image1.putdata(np.ones(sizeImage*sizeImage))
-
-    for i in range(image1.size[0] // 2):
-        for j in range(image1.size[1] // 2):
-            image1.putpixel((i, j), 0)
-
-    image1.save("Trabalho2\Questao4\letraB\image1.png")
+    image1 = Image.open("Trabalho2\Questao4\JImage.png")
 
     mask = {}
     mask[0] = [0, 0, 0] 
@@ -53,18 +48,6 @@ if __name__ == '__main__':
     # erosionImage.show()
     erosionImage.save("Trabalho2\Questao4\letraB\imageResult.png")
 
-    diffImage = Image.new("1", (sizeImage, sizeImage))
-    for i in range(image1.size[0]):
-        for j in range(image1.size[1]):
-            diff = image1.getpixel((i, j)) - erosionImage.getpixel((i, j))
-            diffImage.putpixel((i, j), diff)
+    diffImage = diff(image1, erosionImage)
     
     diffImage.save("Trabalho2\Questao4\letraB\diffImage.png")
-
-    proveDiff = Image.new("1", (sizeImage, sizeImage))
-    for i in range(image1.size[0]):
-        for j in range(image1.size[1]):
-            diff = diffImage.getpixel((i, j)) + erosionImage.getpixel((i, j))
-            proveDiff.putpixel((i, j), diff)
-    
-    proveDiff.save("Trabalho2\Questao4\letraB\proveDiff.png")

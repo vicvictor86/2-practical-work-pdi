@@ -49,7 +49,12 @@ if __name__ == '__main__':
     mask[1] = [1, 1, 1] 
     mask[2] = [1, 1, 1]  
 
-    k = 2
+    k = 1
 
-    newImage = unsharpMasking(lenaImage, mask, k)
-    newImage.save('Trabalho2\\Questao1\\unsharpMasking-B\\lena_gray_original.bmp')
+    unsharpImage = unsharpMasking(lenaImage, mask, k)
+    unsharpImage.save('Trabalho2\\Questao1\\unsharpMasking-B\\lena_gray_unsharp_masking.bmp')
+
+    k = 4
+
+    highBostImage = unsharpMasking(lenaImage, mask, k)
+    highBostImage.save('Trabalho2\\Questao1\\unsharpMasking-B\\lena_gray_high_boost.bmp')

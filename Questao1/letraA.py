@@ -53,14 +53,21 @@ def laplaciano(image, mask, c):
             result = c * sumOfProducts(image, i, j, mask)
             
             newImage.putpixel((i, j), int(result))
-    
+
+    return newImage
+
+def sharpImage(image, laplaciano):
+    lines = image.size[0]
+    columns = image.size[1]
+    newImage = laplaciano.copy()
+
     for i in range(lines):
         for j in range(columns):
             #Correção da escala
             # newImage.putpixel((i, j), int(newImage.getpixel((i, j)) + minimumValue))
 
             newImage.putpixel((i, j), int(newImage.getpixel((i, j)) + image.getpixel((i, j))))
-
+    
     return newImage
 
 if __name__ == '__main__':
@@ -74,5 +81,8 @@ if __name__ == '__main__':
 
     c = -1
 
-    newImage = laplaciano(lenaImage, mask, c)
-    newImage.save('Trabalho2\\Questao1\\laplaciano-A\\lena_gray_filtered.bmp')
+    laplacianoImage = laplaciano(lenaImage, mask, c)
+    laplacianoImage.save('Trabalho2\\Questao1\\laplaciano-A\\lena_gray_laplaciano_result.bmp')
+
+    sharpImage = sharpImage(lenaImage, laplacianoImage)
+    sharpImage.save('Trabalho2\\Questao1\\laplaciano-A\\lena_gray_sharp_image.bmp')

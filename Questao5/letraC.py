@@ -166,22 +166,29 @@ if __name__ == '__main__':
     # onlyGreenImageFilledHolesComplete = union(onlyGreenImageDiffFilledHoles, onlyGreenImageBinary)
     # onlyGreenImageFilledHolesComplete.save("Trabalho2\Questao5\letraC\onlyGreenImageFilledHolesComplete.png")
 
-    binaryBlueImageWithoutHoles = Image.open("Trabalho2\Questao5\letraC\onlyBlueImageFilledHolesComplete.png")
-    binaryYellowImageWithoutHoles = Image.open("Trabalho2\Questao5\letraC\onlyYellowImageFilledHolesComplete.png")
-    binaryRedImageWithoutHoles = Image.open("Trabalho2\Questao5\letraC\onlyRedImageFilledHolesComplete.png")
-    binaryGreenImageWithoutHoles = Image.open("Trabalho2\Questao5\letraC\onlyGreenImageFilledHolesComplete.png")
+    # binaryBlueImageWithoutHoles = Image.open("Trabalho2\Questao5\letraC\onlyBlueImageFilledHolesComplete.png")
+    # binaryYellowImageWithoutHoles = Image.open("Trabalho2\Questao5\letraC\onlyYellowImageFilledHolesComplete.png")
+    # binaryRedImageWithoutHoles = Image.open("Trabalho2\Questao5\letraC\onlyRedImageFilledHolesComplete.png")
+    # binaryGreenImageWithoutHoles = Image.open("Trabalho2\Questao5\letraC\onlyGreenImageFilledHolesComplete.png")
 
-    rgbBlueImage = convertToRGB(binaryBlueImageWithoutHoles, blue)
-    rgbBlueImage.save("Trabalho2\Questao5\letraC\onlyBlueImageFilledHolesCompleteRGB.png")
+    # rgbBlueImage = convertToRGB(binaryBlueImageWithoutHoles, blue)
+    # rgbBlueImage.save("Trabalho2\Questao5\letraC\onlyBlueImageFilledHolesCompleteRGB.png")
 
-    rgbTYellowImage = convertToRGB(binaryYellowImageWithoutHoles, yellow)
-    rgbTYellowImage.save("Trabalho2\Questao5\letraC\onlyYellowImageFilledHolesCompleteRGB.png")
+    # rgbTYellowImage = convertToRGB(binaryYellowImageWithoutHoles, yellow)
+    # rgbTYellowImage.save("Trabalho2\Questao5\letraC\onlyYellowImageFilledHolesCompleteRGB.png")
 
-    rgbRedImage = convertToRGB(binaryRedImageWithoutHoles, red)
-    rgbRedImage.save("Trabalho2\Questao5\letraC\onlyRedImageFilledHolesCompleteRGB.png")
+    # rgbRedImage = convertToRGB(binaryRedImageWithoutHoles, red)
+    # rgbRedImage.save("Trabalho2\Questao5\letraC\onlyRedImageFilledHolesCompleteRGB.png")
 
-    rgbGreenImage = convertToRGB(binaryGreenImageWithoutHoles, green)
-    rgbGreenImage.save("Trabalho2\Questao5\letraC\onlyGreenImageFilledHolesCompleteRGB.png")
+    # rgbGreenImage = convertToRGB(binaryGreenImageWithoutHoles, green)
+    # rgbGreenImage.save("Trabalho2\Questao5\letraC\onlyGreenImageFilledHolesCompleteRGB.png")
     
-    originalImageWithoutHoles = putImagesTogether([rgbBlueImage, rgbTYellowImage, rgbRedImage, rgbGreenImage])
-    originalImageWithoutHoles.save("Trabalho2\Questao5\letraC\originalImageWithoutHoles.png")
+    # originalImageWithoutHoles = putImagesTogether([rgbBlueImage, rgbTYellowImage, rgbRedImage, rgbGreenImage])
+    # originalImageWithoutHoles.save("Trabalho2\Questao5\letraC\originalImageWithoutHoles.png")
+
+    # ISSO NÃO É DO PROJETO FINAL
+    # teste = Image.open("Trabalho2\Questao5\ImageToClosing.png")
+    # teste = convertToBinary(teste)
+    # teste = imageComplementary(teste)
+    # teste.save("Trabalho2\Questao5\\teste.png")
+    # print(teste.getpixel((1, 2)))

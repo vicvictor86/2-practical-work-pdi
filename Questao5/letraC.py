@@ -1,7 +1,5 @@
 from PIL import Image
 
-import numpy as np 
-
 import sys        
 sys.path.append('D:\Programming\PDI\Trabalho2')
 from Questao5.letraA import isolateColor, convertToBinary
@@ -46,29 +44,19 @@ def complementBorder(image):
                 newImage.putpixel((i, j), 1)
     return newImage
 
-def checkIfImageIsAllWhite(image):
-    lines = image.size[0]
-    columns = image.size[1]
-    for i in range(lines):
-        for j in range(columns):
-            pixel = image.getpixel((i, j))
-            if pixel == 0:
-                return False
-    return True
-
-def geodesicDilation(marker, mask, struc_elem, struc_elem_center):
-    marker = marker.copy()
-    mask = mask.copy()
+def geodesicDilation(borderComplement, complementaryImage, structElement, structElementCenter):
+    borderComplement = borderComplement.copy()
+    complementaryImage = complementaryImage.copy()
     
-    result_image = dilation(marker, struc_elem, struc_elem_center)
-    result_image = intersection(result_image, mask)
+    result_image = dilation(borderComplement, structElement, structElementCenter)
+    result_image = intersection(result_image, complementaryImage)
 
-    while areDifferent(result_image, marker):
-        marker = result_image
-        result_image = dilation(marker, struc_elem, struc_elem_center)
-        result_image = intersection(result_image, mask)
+    while areDifferent(result_image, borderComplement):
+        borderComplement = result_image
+        result_image = dilation(borderComplement, structElement, structElementCenter)
+        result_image = intersection(result_image, complementaryImage)
 
-    return diff(marker, mask)
+    return diff(borderComplement, complementaryImage)
 
 def putImagesTogether(images):
     lines = images[0].size[0]
@@ -106,89 +94,82 @@ if __name__ == '__main__':
     mask5x5[3] = [0, 0, 0, 0, 0]
     mask5x5[4] = [0, 0, 0, 0, 0]
 
-    #Blue Image
-    # onlyBlueImageBinary = convertToBinary(isolateColor(image1, blue))
-    # onlyBlueImageBinary.save("Trabalho2\Questao5\letraC\onlyBlueImage.png")
+    # Blue Image
+    onlyBlueImageBinary = convertToBinary(isolateColor(image1, blue))
+    onlyBlueImageBinary.save("Trabalho2\Questao5\letraC\onlyBlueImage.png")
 
-    # onlyBlueImageComplementary = imageComplementary(onlyBlueImageBinary)
-    # onlyBlueImageComplementary.save("Trabalho2\Questao5\letraC\onlyBlueImageComplementary.png")
+    onlyBlueImageComplementary = imageComplementary(onlyBlueImageBinary)
+    onlyBlueImageComplementary.save("Trabalho2\Questao5\letraC\onlyBlueImageComplementary.png")
 
-    # blueComplementBorder = complementBorder(onlyBlueImageBinary)
+    blueComplementBorder = complementBorder(onlyBlueImageBinary)
 
-    # onlyBlueImageDiffFilledHoles = geodesicDilation(blueComplementBorder, onlyBlueImageComplementary, mask3x3, (1, 1))
-    # onlyBlueImageDiffFilledHoles.save("Trabalho2\Questao5\letraC\onlyBlueImageDiffFilledHoles.png")
+    onlyBlueImageDiffFilledHoles = geodesicDilation(blueComplementBorder, onlyBlueImageComplementary, mask3x3, (1, 1))
+    onlyBlueImageDiffFilledHoles.save("Trabalho2\Questao5\letraC\onlyBlueImageDiffFilledHoles.png")
 
-    # onlyBlueImageFilledHolesComplete = union(onlyBlueImageDiffFilledHoles, onlyBlueImageBinary)
-    # onlyBlueImageFilledHolesComplete.save("Trabalho2\Questao5\letraC\onlyBlueImageFilledHolesComplete.png")
+    onlyBlueImageFilledHolesComplete = union(onlyBlueImageDiffFilledHoles, onlyBlueImageBinary)
+    onlyBlueImageFilledHolesComplete.save("Trabalho2\Questao5\letraC\onlyBlueImageFilledHolesComplete.png")
 
-    #Yellow Image
-    # onlyYellowImageBinary = convertToBinary(isolateColor(image1, yellow))
-    # onlyYellowImageBinary.save("Trabalho2\Questao5\letraC\onlyYellowImage.png")
+    # Yellow Image
+    onlyYellowImageBinary = convertToBinary(isolateColor(image1, yellow))
+    onlyYellowImageBinary.save("Trabalho2\Questao5\letraC\onlyYellowImage.png")
 
-    # onlyYellowImageBinaryComplementary = imageComplementary(onlyYellowImageBinary)
-    # onlyYellowImageBinaryComplementary.save("Trabalho2\Questao5\letraC\onlyYellowImageComplementary.png")
+    onlyYellowImageBinaryComplementary = imageComplementary(onlyYellowImageBinary)
+    onlyYellowImageBinaryComplementary.save("Trabalho2\Questao5\letraC\onlyYellowImageComplementary.png")
 
-    # yellowComplementBorder = complementBorder(onlyYellowImageBinary)
+    yellowComplementBorder = complementBorder(onlyYellowImageBinary)
 
-    # onlyYellowImageDiffFilledHoles = geodesicDilation(yellowComplementBorder, onlyYellowImageBinaryComplementary, mask3x3, (1, 1))
-    # onlyYellowImageDiffFilledHoles.save("Trabalho2\Questao5\letraC\onlyyellowImageDiffFilledHoles.png")
+    onlyYellowImageDiffFilledHoles = geodesicDilation(yellowComplementBorder, onlyYellowImageBinaryComplementary, mask3x3, (1, 1))
+    onlyYellowImageDiffFilledHoles.save("Trabalho2\Questao5\letraC\onlyyellowImageDiffFilledHoles.png")
 
-    # onlyYellowImageFilledHolesComplete = union(onlyYellowImageDiffFilledHoles, onlyYellowImageBinary)
-    # onlyYellowImageFilledHolesComplete.save("Trabalho2\Questao5\letraC\onlyYellowImageFilledHolesComplete.png")
+    onlyYellowImageFilledHolesComplete = union(onlyYellowImageDiffFilledHoles, onlyYellowImageBinary)
+    onlyYellowImageFilledHolesComplete.save("Trabalho2\Questao5\letraC\onlyYellowImageFilledHolesComplete.png")
     
-    # #Red Image
-    # onlyRedImageBinary = convertToBinary(isolateColor(image1, red))
-    # onlyRedImageBinary.save("Trabalho2\Questao5\letraC\onlyRedImage.png")
+    # Red Image
+    onlyRedImageBinary = convertToBinary(isolateColor(image1, red))
+    onlyRedImageBinary.save("Trabalho2\Questao5\letraC\onlyRedImage.png")
 
-    # onlyRedImageBinaryComplementary = imageComplementary(onlyRedImageBinary)
-    # onlyRedImageBinaryComplementary.save("Trabalho2\Questao5\letraC\onlyRedImageComplementary.png")
+    onlyRedImageBinaryComplementary = imageComplementary(onlyRedImageBinary)
+    onlyRedImageBinaryComplementary.save("Trabalho2\Questao5\letraC\onlyRedImageComplementary.png")
 
-    # redComplementBorder = complementBorder(onlyRedImageBinary)
+    redComplementBorder = complementBorder(onlyRedImageBinary)
 
-    # onlyRedImageDiffFilledHoles = geodesicDilation(redComplementBorder, onlyRedImageBinaryComplementary, mask3x3, (1, 1))
-    # onlyRedImageDiffFilledHoles.save("Trabalho2\Questao5\letraC\onlyRedImageDiffFilledHoles.png")
+    onlyRedImageDiffFilledHoles = geodesicDilation(redComplementBorder, onlyRedImageBinaryComplementary, mask3x3, (1, 1))
+    onlyRedImageDiffFilledHoles.save("Trabalho2\Questao5\letraC\onlyRedImageDiffFilledHoles.png")
 
-    # onlyRedImageFilledHolesComplete = union(onlyRedImageDiffFilledHoles, onlyRedImageBinary)
-    # onlyRedImageFilledHolesComplete.save("Trabalho2\Questao5\letraC\onlyRedImageFilledHolesComplete.png")
+    onlyRedImageFilledHolesComplete = union(onlyRedImageDiffFilledHoles, onlyRedImageBinary)
+    onlyRedImageFilledHolesComplete.save("Trabalho2\Questao5\letraC\onlyRedImageFilledHolesComplete.png")
 
-    # #Green Image
-    # onlyGreenImageBinary = convertToBinary(isolateColor(image1, green))
-    # onlyGreenImageBinary.save("Trabalho2\Questao5\letraC\onlyGreenImage.png")
+    # Green Image
+    onlyGreenImageBinary = convertToBinary(isolateColor(image1, green))
+    onlyGreenImageBinary.save("Trabalho2\Questao5\letraC\onlyGreenImage.png")
 
-    # onlyGreenImageBinaryComplementary = imageComplementary(onlyGreenImageBinary)
-    # onlyGreenImageBinaryComplementary.save("Trabalho2\Questao5\letraC\onlyGreenImageComplementary.png")
+    onlyGreenImageBinaryComplementary = imageComplementary(onlyGreenImageBinary)
+    onlyGreenImageBinaryComplementary.save("Trabalho2\Questao5\letraC\onlyGreenImageComplementary.png")
 
-    # greenComplementBorder = complementBorder(onlyGreenImageBinary)
+    greenComplementBorder = complementBorder(onlyGreenImageBinary)
 
-    # onlyGreenImageDiffFilledHoles = geodesicDilation(greenComplementBorder, onlyGreenImageBinaryComplementary, mask3x3, (1, 1))
-    # onlyGreenImageDiffFilledHoles.save("Trabalho2\Questao5\letraC\onlyGreenImageDiffFilledHoles.png")
+    onlyGreenImageDiffFilledHoles = geodesicDilation(greenComplementBorder, onlyGreenImageBinaryComplementary, mask3x3, (1, 1))
+    onlyGreenImageDiffFilledHoles.save("Trabalho2\Questao5\letraC\onlyGreenImageDiffFilledHoles.png")
 
-    # onlyGreenImageFilledHolesComplete = union(onlyGreenImageDiffFilledHoles, onlyGreenImageBinary)
-    # onlyGreenImageFilledHolesComplete.save("Trabalho2\Questao5\letraC\onlyGreenImageFilledHolesComplete.png")
+    onlyGreenImageFilledHolesComplete = union(onlyGreenImageDiffFilledHoles, onlyGreenImageBinary)
+    onlyGreenImageFilledHolesComplete.save("Trabalho2\Questao5\letraC\onlyGreenImageFilledHolesComplete.png")
 
-    # binaryBlueImageWithoutHoles = Image.open("Trabalho2\Questao5\letraC\onlyBlueImageFilledHolesComplete.png")
-    # binaryYellowImageWithoutHoles = Image.open("Trabalho2\Questao5\letraC\onlyYellowImageFilledHolesComplete.png")
-    # binaryRedImageWithoutHoles = Image.open("Trabalho2\Questao5\letraC\onlyRedImageFilledHolesComplete.png")
-    # binaryGreenImageWithoutHoles = Image.open("Trabalho2\Questao5\letraC\onlyGreenImageFilledHolesComplete.png")
+    binaryBlueImageWithoutHoles = Image.open("Trabalho2\Questao5\letraC\onlyBlueImageFilledHolesComplete.png")
+    binaryYellowImageWithoutHoles = Image.open("Trabalho2\Questao5\letraC\onlyYellowImageFilledHolesComplete.png")
+    binaryRedImageWithoutHoles = Image.open("Trabalho2\Questao5\letraC\onlyRedImageFilledHolesComplete.png")
+    binaryGreenImageWithoutHoles = Image.open("Trabalho2\Questao5\letraC\onlyGreenImageFilledHolesComplete.png")
 
-    # rgbBlueImage = convertToRGB(binaryBlueImageWithoutHoles, blue)
-    # rgbBlueImage.save("Trabalho2\Questao5\letraC\onlyBlueImageFilledHolesCompleteRGB.png")
+    rgbBlueImage = convertToRGB(binaryBlueImageWithoutHoles, blue)
+    rgbBlueImage.save("Trabalho2\Questao5\letraC\onlyBlueImageFilledHolesCompleteRGB.png")
 
-    # rgbTYellowImage = convertToRGB(binaryYellowImageWithoutHoles, yellow)
-    # rgbTYellowImage.save("Trabalho2\Questao5\letraC\onlyYellowImageFilledHolesCompleteRGB.png")
+    rgbTYellowImage = convertToRGB(binaryYellowImageWithoutHoles, yellow)
+    rgbTYellowImage.save("Trabalho2\Questao5\letraC\onlyYellowImageFilledHolesCompleteRGB.png")
 
-    # rgbRedImage = convertToRGB(binaryRedImageWithoutHoles, red)
-    # rgbRedImage.save("Trabalho2\Questao5\letraC\onlyRedImageFilledHolesCompleteRGB.png")
+    rgbRedImage = convertToRGB(binaryRedImageWithoutHoles, red)
+    rgbRedImage.save("Trabalho2\Questao5\letraC\onlyRedImageFilledHolesCompleteRGB.png")
 
-    # rgbGreenImage = convertToRGB(binaryGreenImageWithoutHoles, green)
-    # rgbGreenImage.save("Trabalho2\Questao5\letraC\onlyGreenImageFilledHolesCompleteRGB.png")
+    rgbGreenImage = convertToRGB(binaryGreenImageWithoutHoles, green)
+    rgbGreenImage.save("Trabalho2\Questao5\letraC\onlyGreenImageFilledHolesCompleteRGB.png")
     
-    # originalImageWithoutHoles = putImagesTogether([rgbBlueImage, rgbTYellowImage, rgbRedImage, rgbGreenImage])
-    # originalImageWithoutHoles.save("Trabalho2\Questao5\letraC\originalImageWithoutHoles.png")
-
-    # ISSO NÃO É DO PROJETO FINAL
-    # teste = Image.open("Trabalho2\Questao5\ImageToClosing.png")
-    # teste = convertToBinary(teste)
-    # teste = imageComplementary(teste)
-    # teste.save("Trabalho2\Questao5\\teste.png")
-    # print(teste.getpixel((1, 2)))
+    originalImageWithoutHoles = putImagesTogether([rgbBlueImage, rgbTYellowImage, rgbRedImage, rgbGreenImage])
+    originalImageWithoutHoles.save("Trabalho2\Questao5\letraC\originalImageWithoutHoles.png")

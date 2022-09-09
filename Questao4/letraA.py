@@ -11,30 +11,28 @@ def pixelInsideImage(image, i, j):
         return True
     return False
 
-def dilation(image, kernel, maskCenter=None):
-    if maskCenter is None:
-        maskCenter = len(kernel) // 2
+def dilation(image, structuralElement, structuralElementCenter=None):
+    if structuralElementCenter is None:
+        structuralElementCenter = len(structuralElement) // 2
         
     lines = image.size[0]
     columns = image.size[1]
     imageResult = image.copy()
     
-    rangeToSearch = len(kernel) // 2
-    
     for i in range(lines):
         for j in range(columns):
             centralPixelValue = image.getpixel((i, j))
-            centralPixelMask = kernel[rangeToSearch][rangeToSearch]
+            centralPixelMask = structuralElement[structuralElementCenter][structuralElementCenter]
 
             if centralPixelValue != centralPixelMask:
                 continue
             
             xInMask = 0
-            for k in range(-rangeToSearch, rangeToSearch + 1):
+            for k in range(-structuralElementCenter, structuralElementCenter + 1):
                 yInMask = 0
-                for l in range(-rangeToSearch, rangeToSearch + 1):
+                for l in range(-structuralElementCenter, structuralElementCenter + 1):
                     if pixelInsideImage(image, i+k, j+l):
-                        if kernel[xInMask][yInMask] == 0:
+                        if structuralElement[xInMask][yInMask] == 0:
                             result = 0           
                             imageResult.putpixel((i+k, j+l), result)
                     yInMask += 1
@@ -52,7 +50,6 @@ if __name__ == '__main__':
 
     dilationImage = dilation(image1, mask)
 
-    # dilationImage.show()
     dilationImage.save("Trabalho2\Questao4\letraA\imageResult.png")
 
     diffImage = diff(image1, dilationImage)

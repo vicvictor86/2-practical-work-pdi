@@ -1,14 +1,6 @@
 from PIL import Image
 import numpy as np 
 
-def createImage(sizeImage, start, end):
-    newImage = Image.new(image1.mode, (sizeImage, sizeImage))
-    newImage.putdata(np.ones(sizeImage*sizeImage))
-
-    for i in range(start, end):
-        for j in range(start, end):
-            newImage.putpixel((i, j), 0)
-
 def union(image1,image2):
     imageResult = Image.new(image1.mode, (image1.size[0], image1.size[1]))
     lines = image1.size[0]

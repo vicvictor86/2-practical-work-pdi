@@ -12,7 +12,10 @@ def pixelInsideImage(image, i, j):
         return True
     return False
 
-def dilation(image, kernel):
+def dilation(image, kernel, maskCenter=None):
+    if maskCenter is None:
+        maskCenter = len(kernel) // 2
+        
     lines = image.size[0]
     columns = image.size[1]
     imageResult = image.copy()

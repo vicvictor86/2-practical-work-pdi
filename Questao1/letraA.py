@@ -22,6 +22,18 @@ def sumOfProducts(image, xImage, yImage, mask):
         xInMask += 1 
     return result
 
+def applyLinearFilter(image, mask):
+    lines = image.size[0]
+    columns = image.size[1]
+    newImage = Image.new(image.mode, (lines, columns))
+
+    for i in range(lines):
+        for j in range(columns):
+            result = sumOfProducts(image, i, j, mask)
+            newImage.putpixel((i, j), int(result))
+
+    return newImage
+
 def laplaciano(image, mask, c):
     lines = image.size[0]
     columns = image.size[1]

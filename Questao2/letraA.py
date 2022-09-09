@@ -6,9 +6,9 @@ sys.path.append('D:/Programming/PDI/Trabalho2')
 from Questao1.letraA import sumOfProducts, proxPixel
 
 def custoMask(image, mask, scalar):
-    newImage = Image.new(image.mode, (image.size[0], image.size[1]))
     lines = image.size[0]
     columns = image.size[1]
+    newImage = Image.new(image.mode, (lines, columns))
 
     for i in range(lines):
         for j in range(columns):

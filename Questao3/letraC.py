@@ -8,12 +8,11 @@ from AuxFunctions.diffTuple import diffTuple
 def diff(image1,image2):
     lines = image1.size[0]
     columns = image1.size[1]
-    imageResult = Image.new(image1.mode, (lines, columns))
+    imageResult = Image.new(image1.mode, (lines, columns), color='white')
     
-    result = 0
     for i in range(lines):
         for j in range(columns):
-            result = 0
+            result = 1
             pixel1 = image1.getpixel((i, j))
             pixel2 = image2.getpixel((i, j))
 
@@ -23,11 +22,27 @@ def diff(image1,image2):
                 else:
                     result = pixel1
             else:
-                if pixel1 - pixel2 == 0:
-                    result = 1
-
+                if pixel1 != pixel2:
+                    result = 0
             imageResult.putpixel((i, j), result)
+        
     return imageResult
+
+def areDifferent(image1, image2):
+    lines = image1.size[0]
+    columns = image1.size[1]
+    for i in range(lines):
+        for j in range(columns):
+            pixel1 = image1.getpixel((i, j))
+            pixel2 = image2.getpixel((i, j))
+
+            if image1.mode == 'RGB' or image1.mode == 'RGBA':
+                if diffTuple(pixel1, pixel2) != (0, 0, 0, 0):
+                    return True
+            else:
+                if pixel1 != pixel2:
+                    return True
+    return False
 
 if __name__ == '__main__':
     sizeImage = 256

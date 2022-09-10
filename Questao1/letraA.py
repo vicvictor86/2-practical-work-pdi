@@ -22,34 +22,15 @@ def sumOfProducts(image, xImage, yImage, mask):
         xInMask += 1 
     return result
 
-def applyLinearFilter(image, mask):
-    lines = image.size[0]
-    columns = image.size[1]
-    newImage = Image.new(image.mode, (lines, columns))
-
-    for i in range(lines):
-        for j in range(columns):
-            result = sumOfProducts(image, i, j, mask)
-            newImage.putpixel((i, j), int(result))
-
-    return newImage
-
 def laplaciano(image, mask, c):
     lines = image.size[0]
     columns = image.size[1]
     newImage = Image.new(image.mode, (lines, columns))
-    
-    minimumValue = 0
 
-    for i in range(lines):
-        for j in range(columns):
-            actualValuePixel = image.getpixel((i, j))
-
-            if i == 0 and j == 0:
-                minimumValue = actualValuePixel
-            else:
-                minimumValue = min(minimumValue, actualValuePixel)
-
+    # Percorre a imagem ignorando as bordas
+    for i in range(1, lines - 1):
+        for j in range(1, columns - 1):
+            #Realiza a soma dos produtos com a máscara do filtro laplaciano
             result = c * sumOfProducts(image, i, j, mask)
             
             newImage.putpixel((i, j), int(result))
@@ -59,20 +40,17 @@ def laplaciano(image, mask, c):
 def sharpImage(image, laplaciano):
     lines = image.size[0]
     columns = image.size[1]
-    newImage = laplaciano.copy()
+    newImage = Image.new(image.mode, (lines, columns))
 
-    for i in range(lines):
-        for j in range(columns):
-            #Correção da escala
-            # newImage.putpixel((i, j), int(newImage.getpixel((i, j)) + minimumValue))
-
-            newImage.putpixel((i, j), int(newImage.getpixel((i, j)) + image.getpixel((i, j))))
+    for i in range(1, lines - 1):
+        for j in range(1, columns - 1):
+            #Adição de imagem original com a imagem laplaciana
+            newImage.putpixel((i, j), int(laplaciano.getpixel((i, j)) + image.getpixel((i, j))))
     
     return newImage
 
 if __name__ == '__main__':
     lenaImage = Image.open('Trabalho2\\lena_gray.bmp')
-    pixelsLenaImage = lenaImage.load()
 
     mask = {}
     mask[0] = [0, 1, 0] 

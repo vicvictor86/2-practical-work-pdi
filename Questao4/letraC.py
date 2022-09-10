@@ -1,5 +1,4 @@
 from PIL import Image
-import numpy as np 
 
 from letraA import dilation
 from letraB import erosion

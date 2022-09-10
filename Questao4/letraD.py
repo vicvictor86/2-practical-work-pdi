@@ -32,11 +32,11 @@ if __name__ == '__main__':
     closingImage = closing(image1, estructuralElement3x3)
     closingImage.save("Trabalho2\Questao4\letraD\imageResult3x3.png")
 
-    diffImage = diff(image1, closingImage)
+    diffImage = diff(closingImage, image1)
     diffImage.save("Trabalho2\Questao4\letraD\diffImage3x3.png")
 
     closingImage = closing(image1, estructuralElement5x5)
     closingImage.save("Trabalho2\Questao4\letraD\imageResult5x5.png")
 
-    diffImage = diff(image1, closingImage)
+    diffImage = diff(closingImage, image1)
     diffImage.save("Trabalho2\Questao4\letraD\diffImage5x5.png")

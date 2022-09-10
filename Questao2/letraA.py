@@ -5,14 +5,14 @@ import sys
 sys.path.append('D:/Programming/PDI/Trabalho2')
 from Questao1.letraA import sumOfProducts, proxPixel
 
-def custoMask(image, mask, scalar):
+def weightedAverage(image, mask, weight):
     lines = image.size[0]
     columns = image.size[1]
     newImage = Image.new(image.mode, (lines, columns))
 
     for i in range(lines):
         for j in range(columns):
-            result = sumOfProducts(image, i, j, mask) / scalar
+            result = sumOfProducts(image, i, j, mask) / weight
             newImage.putpixel((i, j), int(result))
 
     return newImage
@@ -40,42 +40,41 @@ def medianFilter(image, sizeMedianMask):
 
 if __name__ == '__main__':
     lenaImage = Image.open('Trabalho2\\lena_ruido.bmp')
-    pixelsLenaImage = lenaImage.load()
 
     mask1 = {}
     mask1[0] = [0, 1, 0] 
     mask1[1] = [1, 1, 1] 
     mask1[2] = [0, 1, 0]  
-    scalar1 = 5
+    weight1 = 5
 
     mask2 = {}
     mask2[0] = [1, 1, 1] 
     mask2[1] = [1, 1, 1] 
     mask2[2] = [1, 1, 1]  
-    scalar2 = 9
+    weight2 = 9
 
     mask3 = {}
     mask3[0] = [1, 3, 1] 
     mask3[1] = [3, 16, 3] 
     mask3[2] = [1, 3, 1]  
-    scalar3 = 32
+    weight3 = 32
 
     mask4 = {}
     mask4[0] = [0, 1, 0] 
     mask4[1] = [1, 4, 1] 
     mask4[2] = [0, 1, 0]  
-    scalar4 = 8
+    weight4 = 8
 
-    newImage1 = custoMask(lenaImage, mask1, scalar1)
+    newImage1 = weightedAverage(lenaImage, mask1, weight1)
     newImage1.save('Trabalho2\\Questao2\\letraA\\lena_gray_filtered_1.bmp')
 
-    newImage2 = custoMask(lenaImage, mask2, scalar2)
+    newImage2 = weightedAverage(lenaImage, mask2, weight2)
     newImage2.save('Trabalho2\\Questao2\\letraA\\lena_gray_filtered_2.bmp')
 
-    newImage3 = custoMask(lenaImage, mask3, scalar3)
+    newImage3 = weightedAverage(lenaImage, mask3, weight3)
     newImage3.save('Trabalho2\\Questao2\\letraA\\lena_gray_filtered_3.bmp')
 
-    newImage4 = custoMask(lenaImage, mask4, scalar4)
+    newImage4 = weightedAverage(lenaImage, mask4, weight4)
     newImage4.save('Trabalho2\\Questao2\\letraA\\lena_gray_filtered_4.bmp')
 
     sizeMedianMask = 3

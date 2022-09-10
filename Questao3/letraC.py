@@ -1,9 +1,9 @@
 from PIL import Image
-import numpy as np 
 
 import sys        
 sys.path.append('D:\Programming\PDI\Trabalho2')
 from AuxFunctions.diffTuple import diffTuple
+from Questao3.letraA import convertToBinary
 
 def diff(image1,image2):
     lines = image1.size[0]
@@ -22,7 +22,12 @@ def diff(image1,image2):
                 else:
                     result = pixel1
             else:
-                if pixel1 != pixel2:
+                if pixel1 == 255:
+                    pixel1 = 1
+                if pixel2 == 255:
+                    pixel2 = 1
+                    
+                if pixel1 == 0 and pixel2 == 1:
                     result = 0
             imageResult.putpixel((i, j), result)
         
@@ -45,29 +50,11 @@ def areDifferent(image1, image2):
     return False
 
 if __name__ == '__main__':
-    sizeImage = 256
-    image1 = Image.new("1", (sizeImage, sizeImage))
-    image1.putdata(np.ones(sizeImage*sizeImage))
+    image1 = Image.open("Trabalho2\Questao3\image1.png")
+    image2 = Image.open("Trabalho2\Questao3\image2.png")
 
-    image2 = Image.new("1", (sizeImage, sizeImage))
-    image2.putdata(np.ones(sizeImage*sizeImage))
-
-    for i in range(int(image1.size[0] / 2)):
-        for j in range(int(image1.size[1] / 2)):
-            image1.putpixel((i, j), 0)
-
-    image1.save("Trabalho2\Questao3\letraC\image1.png")
-
-    for i in range(int(image2.size[0] / 2)):
-        for j in range(int(image2.size[1] / 2)):
-            image2.putpixel((i, j), 0)
-
-    for i in range(int(image1.size[0] / 2), int(image2.size[0])):
-        for j in range(int(image1.size[1] / 2), int(image2.size[1])):
-            image2.putpixel((i, j), 0)
-
-    image2.save("Trabalho2\Questao3\letraC\image2.png")
+    image1 = convertToBinary(image1)
+    image2 = convertToBinary(image2)
 
     imageResult = diff(image1, image2)
-    imageResult.show()
     imageResult.save("Trabalho2\Questao3\letraC\imageResult.png")

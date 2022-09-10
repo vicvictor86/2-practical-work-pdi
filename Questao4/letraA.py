@@ -22,8 +22,11 @@ def dilation(image, structuralElement, structuralElementCenter=None):
     for i in range(lines):
         for j in range(columns):
             centralPixelValue = image.getpixel((i, j))
+            if centralPixelValue == 255:
+                centralPixelValue = 1
             centralPixelMask = structuralElement[structuralElementCenter][structuralElementCenter]
-
+            
+            # print(centralPixelValue, centralPixelMask)
             if centralPixelValue != centralPixelMask:
                 continue
             
@@ -52,6 +55,6 @@ if __name__ == '__main__':
 
     dilationImage.save("Trabalho2\Questao4\letraA\imageResult.png")
 
-    diffImage = diff(image1, dilationImage)
+    diffImage = diff(dilationImage, image1)
     
     diffImage.save("Trabalho2\Questao4\letraA\diffImage.png")

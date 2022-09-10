@@ -6,18 +6,20 @@ sys.path.append('D:\Programming\PDI\Trabalho2')
 from Questao3.letraC import diff
 from Questao4.letraA import pixelInsideImage
 
-def erosion(image, structuralElement):
+def erosion(image, structuralElement, structuralElementCenter=None):
+    if structuralElementCenter is None:
+        structuralElementCenter = len(structuralElement) // 2
+
     lines = image.size[0]
     columns = image.size[1]
     imageResult = image.copy()
 
-    rangeToSearch = len(structuralElement) // 2
-    # te = 0
-
     for i in range(lines):
         for j in range(columns):
             centralPixelValue = image.getpixel((i, j))
-            centralPixelstructuralElement = structuralElement[rangeToSearch][rangeToSearch]
+            if centralPixelValue == 255:
+                centralPixelValue = 1
+            centralPixelstructuralElement = structuralElement[structuralElementCenter][structuralElementCenter]
 
             if centralPixelValue != centralPixelstructuralElement:
                 continue
@@ -25,13 +27,16 @@ def erosion(image, structuralElement):
             erosionHit = False
             
             xInstructuralElement = 0
-            for k in range(-rangeToSearch, rangeToSearch + 1):
+            for k in range(-structuralElementCenter, structuralElementCenter + 1):
                 yInstructuralElement = 0
-                for l in range(-rangeToSearch, rangeToSearch + 1):
+                for l in range(-structuralElementCenter, structuralElementCenter + 1):
                     if pixelInsideImage(image, i+k, j+l):
-                        if structuralElement[xInstructuralElement][yInstructuralElement] != image.getpixel((i+k, j+l)):
+                        actualPixel = image.getpixel((i+k, j+l))
+                        if actualPixel == 255:
+                            actualPixel = 1
+
+                        if structuralElement[xInstructuralElement][yInstructuralElement] != actualPixel:
                             result = 1           
-                            # te += 1
                             imageResult.putpixel((i, j), result)
                             erosionHit = True
                             break
@@ -41,7 +46,6 @@ def erosion(image, structuralElement):
                 if erosionHit:
                     break
             
-    # print(te)
     return imageResult
 
 if __name__ == '__main__':
@@ -55,7 +59,6 @@ if __name__ == '__main__':
     sizestructuralElement = 3
     erosionImage = erosion(image1, estructuralElement)
     
-    # erosionImage.show()
     erosionImage.save("Trabalho2\Questao4\letraB\imageResult.png")
 
     diffImage = diff(image1, erosionImage)

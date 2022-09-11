@@ -5,12 +5,15 @@ sys.path.append('D:\Programming\PDI\Trabalho2')
 
 from Questao4.letraA import dilation
 from Questao4.letraB import erosion
-from Questao3.letraC import diff
+from AuxFunctions.diff import diff 
 
-def closing(image, estructuralElement):
-    dilatadedImage = dilation(image, estructuralElement)
+def closing(image, estructuralElement, structuralElementCenter=None):
+    if structuralElementCenter is None:
+        structuralElementCenter = len(estructuralElement) // 2
 
-    closingImage = erosion(dilatadedImage, estructuralElement)
+    dilatadedImage = dilation(image, estructuralElement, structuralElementCenter)
+
+    closingImage = erosion(dilatadedImage, estructuralElement, structuralElementCenter)
     
     return closingImage
 

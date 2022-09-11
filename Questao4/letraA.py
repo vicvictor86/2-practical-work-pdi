@@ -1,8 +1,9 @@
 from PIL import Image
 
-import sys        
+import sys
+
 sys.path.append('D:\Programming\PDI\Trabalho2')
-from Questao3.letraC import diff
+from AuxFunctions.diff import diff        
 
 def pixelInsideImage(image, i, j):
     lines = image.size[0]

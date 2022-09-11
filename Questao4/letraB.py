@@ -3,7 +3,7 @@ from PIL import Image
 import sys        
 sys.path.append('D:\Programming\PDI\Trabalho2')
 
-from Questao3.letraC import diff
+from AuxFunctions.diff import diff 
 from Questao4.letraA import pixelInsideImage
 
 def erosion(image, structuralElement, structuralElementCenter=None):
@@ -34,7 +34,7 @@ def erosion(image, structuralElement, structuralElementCenter=None):
                         actualPixel = image.getpixel((i+k, j+l))
                         if actualPixel == 255:
                             actualPixel = 1
-
+                            
                         if structuralElement[xInstructuralElement][yInstructuralElement] != actualPixel:
                             result = 1           
                             imageResult.putpixel((i, j), result)

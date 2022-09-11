@@ -4,7 +4,7 @@ import sys
 sys.path.append('D:\Programming\PDI\Trabalho2')
 
 from Questao5.letraA import isolateColor
-from Questao3.letraC import diff
+from AuxFunctions.diff import diff
 
 if __name__ == '__main__':
     black = (0, 0, 0, 255)

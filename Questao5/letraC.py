@@ -6,7 +6,8 @@ from Questao5.letraA import isolateColor, convertToBinary
 from Questao4.letraA import dilation
 from Questao3.letraA import union
 from Questao3.letraB import intersection
-from Questao3.letraC import diff, areDifferent
+from AuxFunctions.diff import diff 
+from AuxFunctions.diffTuple import diffTuple
 
 def convertToRGB(image, color):
     lines = image.size[0]
@@ -43,6 +44,22 @@ def complementBorder(image):
             else:
                 newImage.putpixel((i, j), 1)
     return newImage
+
+def areDifferent(image1, image2):
+    lines = image1.size[0]
+    columns = image1.size[1]
+    for i in range(lines):
+        for j in range(columns):
+            pixel1 = image1.getpixel((i, j))
+            pixel2 = image2.getpixel((i, j))
+
+            if image1.mode == 'RGB' or image1.mode == 'RGBA':
+                if diffTuple(pixel1, pixel2) != (0, 0, 0, 0):
+                    return True
+            else:
+                if pixel1 != pixel2:
+                    return True
+    return False
 
 def geodesicDilation(borderComplement, complementaryImage, structElement, structElementCenter):
     borderComplement = borderComplement.copy()

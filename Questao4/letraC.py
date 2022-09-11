@@ -5,13 +5,16 @@ from letraB import erosion
 
 import sys        
 sys.path.append('D:\Programming\PDI\Trabalho2')
-from Questao3.letraC import diff
+from AuxFunctions.diff import diff 
 
-def opening(image, estructuralElement):
-    erosionImage = erosion(image, estructuralElement)
+def opening(image, estructuralElement, structuralElementCenter=None):
+    if structuralElementCenter is None:
+        structuralElementCenter = len(estructuralElement) // 2
+
+    erosionImage = erosion(image, estructuralElement, structuralElementCenter)
     erosionImage.save("Trabalho2\Questao4\letraC\erosionImage.png")
 
-    openingImage = dilation(erosionImage, estructuralElement)
+    openingImage = dilation(erosionImage, estructuralElement, structuralElementCenter)
     
     return openingImage
 
